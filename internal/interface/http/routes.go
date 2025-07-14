@@ -22,9 +22,15 @@ func SetupRoutes(r *gin.Engine) {
 	// 全局添加日志中间件
 	r.Use(middleware.LogMiddleware())
 
+	handlers := routes.Handlers{
+		LoginHandler:    handlers.LoginHandler,
+		RegisterHandler: handlers.RegisterHandler,
+		HelloHandler:    handlers.HelloHandler,
+	}
+
 	// 设置公开路由
-	routes.SetupPublicRoutes(r, handlers.LoginHandler, handlers.RegisterHandler)
+	routes.SetupPublicRoutes(r, handlers)
 
 	// 设置认证路由
-	routes.SetupAuthRoutes(r, handlers.HelloHandler)
+	routes.SetupAuthRoutes(r, handlers)
 }

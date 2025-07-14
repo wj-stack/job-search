@@ -5,10 +5,10 @@ import (
 )
 
 // SetupPublicRoutes 设置公开接口路由
-func SetupPublicRoutes(r *gin.Engine, loginHandler, registerHandler gin.HandlerFunc) {
+func SetupPublicRoutes(r *gin.Engine, handlers Handlers) {
 	public := r.Group("/api")
 	{
-		public.POST("/login", loginHandler)
-		public.POST("/register", registerHandler)
+		public.POST("/login", handlers.LoginHandler)
+		public.POST("/register", handlers.RegisterHandler)
 	}
 }

@@ -7,12 +7,12 @@ import (
 )
 
 // SetupAuthRoutes 设置需要认证的接口路由
-func SetupAuthRoutes(r *gin.Engine, helloHandler gin.HandlerFunc) {
+func SetupAuthRoutes(r *gin.Engine, handlers Handlers) {
 	cache := middleware.NewCache()
 	api := r.Group("/api")
 	{
 		api.Use(middleware.AuthMiddleware())
 		api.Use(middleware.CacheMiddleware(cache))
-		api.GET("/hello", helloHandler)
+		api.GET("/hello", handlers.HelloHandler)
 	}
 }
