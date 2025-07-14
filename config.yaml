@@ -1,0 +1,8 @@
+# 数据库配置
+database:
+  driver: mysql
+  source: root:password@tcp(127.0.0.1:3306)/testdb?parseTime=True
+
+# 服务器配置
+server:
+  port: 8080

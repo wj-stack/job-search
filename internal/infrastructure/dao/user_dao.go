@@ -1,42 +1,86 @@
 package dao
 
 import (
-	"database/sql"
-	"log"
+	"context"
 
+	"github.com/wj-stack/job-search/ent"
+	"github.com/wj-stack/job-search/ent/user"
 	"github.com/wj-stack/job-search/internal/domain/model"
 )
 
-// UserDAO 用户数据访问对象
+// UserDAO 定义 User 数据访问对象接口
 type UserDAO struct {
-	DB *sql.DB
+	client *ent.Client
 }
 
-// NewUserDAO 创建新的 UserDAO 实例
-func NewUserDAO(db *sql.DB) *UserDAO {
-	return &UserDAO{DB: db}
+// NewUserDAO 创建一个新的 UserDAO 实例
+func NewUserDAO(client *ent.Client) *UserDAO {
+	return &UserDAO{
+		client: client,
+	}
 }
 
-// GetUserByUsername 根据用户名获取用户信息
-func (u *UserDAO) GetUserByUsername(username string) (*model.User, error) {
-	var user model.User
-	err := u.DB.QueryRow("SELECT id, username, password FROM users WHERE username = ?", username).Scan(&user.ID, &user.Username, &user.Password)
+// CreateUser 创建一个新的 User 记录
+func (d *UserDAO) CreateUser(ctx context.Context, user *model.User) (*model.User, error) {
+	entUser, err := d.client.User.Create().
+		SetUsername(user.Username).
+		SetPassword(user.Password).
+		Save(ctx)
 	if err != nil {
-		if err == sql.ErrNoRows {
-			return nil, nil
-		}
-		log.Printf("查询用户失败: %v", err)
 		return nil, err
 	}
-	return &user, nil
+	return &model.User{
+		ID:       entUser.ID,
+		Username: entUser.Username,
+		Password: entUser.Password,
+	}, nil
 }
 
-// CreateUser 创建新用户
-func (u *UserDAO) CreateUser(user *model.User) error {
-	_, err := u.DB.Exec("INSERT INTO users (username, password) VALUES (?, ?)", user.Username, user.Password)
+// GetUserByID 根据 ID 获取 User 记录
+func (d *UserDAO) GetUserByID(ctx context.Context, id int) (*model.User, error) {
+	entUser, err := d.client.User.Get(ctx, id)
 	if err != nil {
-		log.Printf("创建用户失败: %v", err)
-		return err
+		return nil, err
 	}
-	return nil
+	return &model.User{
+		ID:       entUser.ID,
+		Username: entUser.Username,
+		Password: entUser.Password,
+	}, nil
+}
+
+// GetUserByName 根据用户名获取 User 记录
+func (d *UserDAO) GetUserByName(ctx context.Context, name string) (*model.User, error) {
+	entUser, err := d.client.User.Query().
+		Where(user.Username(name)).
+		Only(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &model.User{
+		ID:       entUser.ID,
+		Username: entUser.Username,
+		Password: entUser.Password,
+	}, nil
+}
+
+// UpdateUser 更新 User 记录
+func (d *UserDAO) UpdateUser(ctx context.Context, id int, name string) (*model.User, error) {
+	p, err := d.client.User.UpdateOneID(id).
+		SetUsername(name).
+		Save(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &model.User{
+		ID:       p.ID,
+		Username: p.Username,
+		Password: p.Password,
+	}, nil
+}
+
+// DeleteUser 删除 User 记录
+func (d *UserDAO) DeleteUser(ctx context.Context, id int) error {
+	return d.client.User.DeleteOneID(id).
+		Exec(ctx)
 }

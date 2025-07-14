@@ -18,7 +18,7 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	loggedIn, err := UserService.Login(credentials.Username, credentials.Password)
+	loggedIn, err := UserService.Login(c, credentials.Username, credentials.Password)
 	if err != nil {
 		c.AbortWithStatusJSON(500, gin.H{"error": "服务器错误"})
 		return
@@ -42,7 +42,7 @@ func RegisterHandler(c *gin.Context) {
 		return
 	}
 
-	if err := UserService.CreateUser(userData.Username, userData.Password); err != nil {
+	if _, err := UserService.CreateUser(c, userData.Username, userData.Password); err != nil {
 		c.AbortWithStatusJSON(500, gin.H{"error": "注册失败"})
 		return
 	}
