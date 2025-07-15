@@ -1,4 +1,5 @@
 // 封装 API 请求
+import { handleApiError } from '@/utils/errorHandler'
 const apiBase = '/api'
 
 /**
@@ -26,7 +27,6 @@ export const login = async (username, password) => {
     
     return response.json()
   } catch (error) {
-    console.error('请求出错:', error)
-    throw error
+    return handleApiError(error)
   }
 }
