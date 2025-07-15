@@ -23,6 +23,7 @@ func main() {
 	}
 
 	client := dao.InitDB(cfg.Database.Driver, cfg.Database.Source)
+	defer client.Close()
 	// 初始化 DAO 和服务
 	userDAO := dao.NewUserDAO(client)
 	userService := service.NewUserService(userDAO)

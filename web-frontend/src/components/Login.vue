@@ -1,15 +1,18 @@
 <script setup>
 import { ref } from 'vue'
+import { login } from '@/api'
 
 const username = ref('')
 const password = ref('')
 
-const handleLogin = () => {
-  console.log('登录信息:', {
-    username: username.value,
-    password: password.value
-  })
-  // 这里可添加实际的登录逻辑
+const handleLogin = async () => {
+  try {
+    const data = await login(username.value, password.value)
+    console.log('登录成功:', data)
+    // 可添加登录成功后的逻辑，如跳转页面等
+  } catch (error) {
+    console.error('登录出错:', error)
+  }
 }
 </script>
 
