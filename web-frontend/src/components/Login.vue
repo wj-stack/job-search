@@ -1,15 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import { login } from '@/api'
+import { useRouter } from 'vue-router'
 
 const username = ref('')
 const password = ref('')
+const router = useRouter()
 
 const handleLogin = async () => {
   try {
     const data = await login(username.value, password.value)
     console.log('登录成功:', data)
-    // 可添加登录成功后的逻辑，如跳转页面等
+    router.push('/home')
   } catch (error) {
     console.error('登录出错:', error)
   }
