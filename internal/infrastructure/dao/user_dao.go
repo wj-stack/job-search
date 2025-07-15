@@ -6,7 +6,10 @@ import (
 	"github.com/wj-stack/job-search/ent"
 	"github.com/wj-stack/job-search/ent/user"
 	"github.com/wj-stack/job-search/internal/domain/model"
+	"github.com/wj-stack/job-search/internal/domain/repository"
 )
+
+var _ repository.UserRepository = (*UserDAO)(nil)
 
 // UserDAO 定义 User 数据访问对象接口
 type UserDAO struct {

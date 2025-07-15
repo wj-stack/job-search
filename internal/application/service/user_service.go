@@ -5,16 +5,16 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/wj-stack/job-search/internal/domain/model"
-	"github.com/wj-stack/job-search/internal/infrastructure/dao"
+	"github.com/wj-stack/job-search/internal/domain/repository"
 )
 
 // UserService 用户服务
 type UserService struct {
-	userDAO *dao.UserDAO
+	userDAO repository.UserRepository
 }
 
 // NewUserService 创建新的 UserService 实例
-func NewUserService(userDAO *dao.UserDAO) *UserService {
+func NewUserService(userDAO repository.UserRepository) *UserService {
 	return &UserService{userDAO: userDAO}
 }
 
