@@ -10,6 +10,7 @@ require (
 	entgo.io/ent v0.13.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/golang/mock v1.6.0
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/stretchr/testify v1.8.3
 	golang.org/x/crypto v0.40.0
 	gopkg.in/yaml.v3 v3.0.1

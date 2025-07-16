@@ -23,13 +23,16 @@ func CORSMiddleware() gin.HandlerFunc {
 	}
 }
 
-var UserService *service.UserService
-
 // SetupUserService 设置用户服务
 func SetupUserService(s *service.UserService) {
-	UserService = s
 	// 将服务实例传递给 handlers 包
 	handlers.UserService = s
+}
+
+// SetupJobService 设置Job服务
+func SetupJobService(s *service.JobService) {
+	// 将服务实例传递给 handlers 包
+	handlers.JobService = s
 }
 
 func SetupRoutes(r *gin.Engine) {
@@ -38,15 +41,15 @@ func SetupRoutes(r *gin.Engine) {
 	// 全局添加日志中间件
 	r.Use(middleware.LogMiddleware())
 
-	handlers := routes.Handlers{
-		LoginHandler:    handlers.LoginHandler,
-		RegisterHandler: handlers.RegisterHandler,
-		HelloHandler:    handlers.HelloHandler,
-	}
-
 	// 设置公开路由
-	routes.SetupPublicRoutes(r, handlers)
+	routes.SetupPublicRoutes(r)
 
 	// 设置认证路由
-	routes.SetupAuthRoutes(r, handlers)
+	routes.SetupAuthRoutes(r)
+
+	// 注册岗位路由
+	routes.SetupJobRoutes(r)
+
+	// 注册投递路由
+	routes.SetupApplicationRoutes(r)
 }

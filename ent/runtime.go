@@ -3,6 +3,8 @@
 package ent
 
 import (
+	"github.com/wj-stack/job-search/ent/application"
+	"github.com/wj-stack/job-search/ent/job"
 	"github.com/wj-stack/job-search/ent/schema"
 	"github.com/wj-stack/job-search/ent/user"
 )
@@ -11,14 +13,62 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	applicationFields := schema.Application{}.Fields()
+	_ = applicationFields
+	// applicationDescResumeURL is the schema descriptor for resume_url field.
+	applicationDescResumeURL := applicationFields[3].Descriptor()
+	// application.ResumeURLValidator is a validator for the "resume_url" field. It is called by the builders before save.
+	application.ResumeURLValidator = applicationDescResumeURL.Validators[0].(func(string) error)
+	// applicationDescStatus is the schema descriptor for status field.
+	applicationDescStatus := applicationFields[4].Descriptor()
+	// application.StatusValidator is a validator for the "status" field. It is called by the builders before save.
+	application.StatusValidator = applicationDescStatus.Validators[0].(func(string) error)
+	jobFields := schema.Job{}.Fields()
+	_ = jobFields
+	// jobDescTitle is the schema descriptor for title field.
+	jobDescTitle := jobFields[1].Descriptor()
+	// job.TitleValidator is a validator for the "title" field. It is called by the builders before save.
+	job.TitleValidator = jobDescTitle.Validators[0].(func(string) error)
+	// jobDescCompany is the schema descriptor for company field.
+	jobDescCompany := jobFields[2].Descriptor()
+	// job.CompanyValidator is a validator for the "company" field. It is called by the builders before save.
+	job.CompanyValidator = jobDescCompany.Validators[0].(func(string) error)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescUsername is the schema descriptor for username field.
-	userDescUsername := userFields[0].Descriptor()
+	userDescUsername := userFields[1].Descriptor()
 	// user.UsernameValidator is a validator for the "username" field. It is called by the builders before save.
-	user.UsernameValidator = userDescUsername.Validators[0].(func(string) error)
+	user.UsernameValidator = func() func(string) error {
+		validators := userDescUsername.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(username string) error {
+			for _, fn := range fns {
+				if err := fn(username); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// userDescPassword is the schema descriptor for password field.
-	userDescPassword := userFields[1].Descriptor()
+	userDescPassword := userFields[2].Descriptor()
 	// user.PasswordValidator is a validator for the "password" field. It is called by the builders before save.
-	user.PasswordValidator = userDescPassword.Validators[0].(func(string) error)
+	user.PasswordValidator = func() func(string) error {
+		validators := userDescPassword.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(password string) error {
+			for _, fn := range fns {
+				if err := fn(password); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 }

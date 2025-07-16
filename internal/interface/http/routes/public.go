@@ -2,13 +2,13 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wj-stack/job-search/internal/interface/http/handlers"
 )
 
 // SetupPublicRoutes 设置公开接口路由
-func SetupPublicRoutes(r *gin.Engine, handlers Handlers) {
-	public := r.Group("/api")
+func SetupPublicRoutes(r *gin.Engine) {
+	api := r.Group("/api")
 	{
-		public.POST("/login", handlers.LoginHandler)
-		public.POST("/register", handlers.RegisterHandler)
+		api.GET("/hello", handlers.HelloHandler)
 	}
 }

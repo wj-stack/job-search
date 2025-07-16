@@ -4,12 +4,11 @@ import (
 	"flag"
 	"fmt"
 
+	"github.com/gin-gonic/gin"
 	"github.com/wj-stack/job-search/internal/application/service"
 	"github.com/wj-stack/job-search/internal/infrastructure/config"
 	"github.com/wj-stack/job-search/internal/infrastructure/dao"
 	"github.com/wj-stack/job-search/internal/interface/http"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -27,7 +26,12 @@ func main() {
 	// 初始化 DAO 和服务
 	userDAO := dao.NewUserDAO(client)
 	userService := service.NewUserService(userDAO)
+
+	jobDAO := dao.NewJobDAO(client)
+	jobService := service.NewJobService(jobDAO)
+
 	http.SetupUserService(userService)
+	http.SetupJobService(jobService)
 
 	router := gin.Default()
 	http.SetupRoutes(router)

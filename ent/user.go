@@ -15,10 +15,11 @@ import (
 type User struct {
 	config `json:"-"`
 	// ID of the ent.
+	// 用户 ID
 	ID int `json:"id,omitempty"`
-	// Username holds the value of the "username" field.
+	// 用户名
 	Username string `json:"username,omitempty"`
-	// Password holds the value of the "password" field.
+	// 密码
 	Password     string `json:"-"`
 	selectValues sql.SelectValues
 }

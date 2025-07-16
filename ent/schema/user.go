@@ -13,10 +13,18 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int("id").
+			Unique().
+			Comment("用户 ID"),
 		field.String("username").
-			NotEmpty(),
+			MaxLen(50).
+			NotEmpty().
+			Comment("用户名"),
 		field.String("password").
-			NotEmpty().Sensitive(),
+			MaxLen(100).
+			NotEmpty().
+			Sensitive().
+			Comment("密码"),
 	}
 }
 
