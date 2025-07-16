@@ -89,7 +89,7 @@ func (r *JobDAO) DeleteJob(ctx context.Context, id int) error {
 }
 
 // ListJobsWithPagination implements repository.JobRepository.
-func (r *JobDAO) ListJobsWithPagination(ctx context.Context, query repository.JobPaginationQuery) ([]*model.Job, int, error) {
+func (r *JobDAO) ListJobsWithPagination(ctx context.Context, query *repository.JobPaginationQuery) ([]*model.Job, int, error) {
 	queryBuilder := r.client.Job.Query()
 	if query.Query != "" {
 		queryBuilder.Where(job.Or(
@@ -104,6 +104,9 @@ func (r *JobDAO) ListJobsWithPagination(ctx context.Context, query repository.Jo
 	}
 	if query.CityInfo != "" {
 		queryBuilder.Where(job.CityInfo(query.CityInfo))
+	}
+	if len(query.CityList) > 0 {
+		queryBuilder.Where(job.CityInfoIn(query.CityList...))
 	}
 	total, err := queryBuilder.Count(ctx)
 	if err != nil {

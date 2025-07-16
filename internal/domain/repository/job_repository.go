@@ -7,11 +7,12 @@ import (
 )
 
 type JobPaginationQuery struct {
-	Page        int    `json:"page"`
-	PageSize    int    `json:"page_size"`
-	Query       string `json:"query"`
-	JobCategory string `json:"job_category"`
-	CityInfo    string `json:"city_info"`
+	Page        int      `json:"page"`
+	PageSize    int      `json:"page_size"`
+	Query       string   `json:"query"`
+	JobCategory string   `json:"job_category"`
+	CityInfo    string   `json:"city_info"`
+	CityList    []string `json:"city_list"`
 }
 
 type JobRepository interface {
@@ -21,5 +22,5 @@ type JobRepository interface {
 	UpdateJob(ctx context.Context, id int, title, company string) (*model.Job, error)
 	DeleteJob(ctx context.Context, id int) error
 
-	ListJobsWithPagination(ctx context.Context, query JobPaginationQuery) ([]*model.Job, int, error)
+	ListJobsWithPagination(ctx context.Context, query *JobPaginationQuery) ([]*model.Job, int, error)
 }
