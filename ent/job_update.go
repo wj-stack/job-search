@@ -6,9 +6,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"entgo.io/ent/dialect/sql/sqljson"
 	"entgo.io/ent/schema/field"
 	"github.com/wj-stack/job-search/ent/job"
 	"github.com/wj-stack/job-search/ent/predicate"
@@ -52,6 +54,122 @@ func (ju *JobUpdate) SetNillableCompany(s *string) *JobUpdate {
 	if s != nil {
 		ju.SetCompany(*s)
 	}
+	return ju
+}
+
+// SetDescription sets the "description" field.
+func (ju *JobUpdate) SetDescription(s string) *JobUpdate {
+	ju.mutation.SetDescription(s)
+	return ju
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableDescription(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetDescription(*s)
+	}
+	return ju
+}
+
+// SetRequirement sets the "requirement" field.
+func (ju *JobUpdate) SetRequirement(s string) *JobUpdate {
+	ju.mutation.SetRequirement(s)
+	return ju
+}
+
+// SetNillableRequirement sets the "requirement" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableRequirement(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetRequirement(*s)
+	}
+	return ju
+}
+
+// SetJobCategory sets the "job_category" field.
+func (ju *JobUpdate) SetJobCategory(s string) *JobUpdate {
+	ju.mutation.SetJobCategory(s)
+	return ju
+}
+
+// SetNillableJobCategory sets the "job_category" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableJobCategory(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetJobCategory(*s)
+	}
+	return ju
+}
+
+// SetCityInfo sets the "city_info" field.
+func (ju *JobUpdate) SetCityInfo(s string) *JobUpdate {
+	ju.mutation.SetCityInfo(s)
+	return ju
+}
+
+// SetNillableCityInfo sets the "city_info" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableCityInfo(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetCityInfo(*s)
+	}
+	return ju
+}
+
+// SetRecruitType sets the "recruit_type" field.
+func (ju *JobUpdate) SetRecruitType(s string) *JobUpdate {
+	ju.mutation.SetRecruitType(s)
+	return ju
+}
+
+// SetNillableRecruitType sets the "recruit_type" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableRecruitType(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetRecruitType(*s)
+	}
+	return ju
+}
+
+// SetPublishTime sets the "publish_time" field.
+func (ju *JobUpdate) SetPublishTime(t time.Time) *JobUpdate {
+	ju.mutation.SetPublishTime(t)
+	return ju
+}
+
+// SetNillablePublishTime sets the "publish_time" field if the given value is not nil.
+func (ju *JobUpdate) SetNillablePublishTime(t *time.Time) *JobUpdate {
+	if t != nil {
+		ju.SetPublishTime(*t)
+	}
+	return ju
+}
+
+// SetCode sets the "code" field.
+func (ju *JobUpdate) SetCode(s string) *JobUpdate {
+	ju.mutation.SetCode(s)
+	return ju
+}
+
+// SetNillableCode sets the "code" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableCode(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetCode(*s)
+	}
+	return ju
+}
+
+// SetCityList sets the "city_list" field.
+func (ju *JobUpdate) SetCityList(s []string) *JobUpdate {
+	ju.mutation.SetCityList(s)
+	return ju
+}
+
+// AppendCityList appends s to the "city_list" field.
+func (ju *JobUpdate) AppendCityList(s []string) *JobUpdate {
+	ju.mutation.AppendCityList(s)
+	return ju
+}
+
+// ClearCityList clears the value of the "city_list" field.
+func (ju *JobUpdate) ClearCityList() *JobUpdate {
+	ju.mutation.ClearCityList()
 	return ju
 }
 
@@ -120,6 +238,38 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := ju.mutation.Company(); ok {
 		_spec.SetField(job.FieldCompany, field.TypeString, value)
 	}
+	if value, ok := ju.mutation.Description(); ok {
+		_spec.SetField(job.FieldDescription, field.TypeString, value)
+	}
+	if value, ok := ju.mutation.Requirement(); ok {
+		_spec.SetField(job.FieldRequirement, field.TypeString, value)
+	}
+	if value, ok := ju.mutation.JobCategory(); ok {
+		_spec.SetField(job.FieldJobCategory, field.TypeString, value)
+	}
+	if value, ok := ju.mutation.CityInfo(); ok {
+		_spec.SetField(job.FieldCityInfo, field.TypeString, value)
+	}
+	if value, ok := ju.mutation.RecruitType(); ok {
+		_spec.SetField(job.FieldRecruitType, field.TypeString, value)
+	}
+	if value, ok := ju.mutation.PublishTime(); ok {
+		_spec.SetField(job.FieldPublishTime, field.TypeTime, value)
+	}
+	if value, ok := ju.mutation.Code(); ok {
+		_spec.SetField(job.FieldCode, field.TypeString, value)
+	}
+	if value, ok := ju.mutation.CityList(); ok {
+		_spec.SetField(job.FieldCityList, field.TypeJSON, value)
+	}
+	if value, ok := ju.mutation.AppendedCityList(); ok {
+		_spec.AddModifier(func(u *sql.UpdateBuilder) {
+			sqljson.Append(u, job.FieldCityList, value)
+		})
+	}
+	if ju.mutation.CityListCleared() {
+		_spec.ClearField(job.FieldCityList, field.TypeJSON)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, ju.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{job.Label}
@@ -165,6 +315,122 @@ func (juo *JobUpdateOne) SetNillableCompany(s *string) *JobUpdateOne {
 	if s != nil {
 		juo.SetCompany(*s)
 	}
+	return juo
+}
+
+// SetDescription sets the "description" field.
+func (juo *JobUpdateOne) SetDescription(s string) *JobUpdateOne {
+	juo.mutation.SetDescription(s)
+	return juo
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableDescription(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetDescription(*s)
+	}
+	return juo
+}
+
+// SetRequirement sets the "requirement" field.
+func (juo *JobUpdateOne) SetRequirement(s string) *JobUpdateOne {
+	juo.mutation.SetRequirement(s)
+	return juo
+}
+
+// SetNillableRequirement sets the "requirement" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableRequirement(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetRequirement(*s)
+	}
+	return juo
+}
+
+// SetJobCategory sets the "job_category" field.
+func (juo *JobUpdateOne) SetJobCategory(s string) *JobUpdateOne {
+	juo.mutation.SetJobCategory(s)
+	return juo
+}
+
+// SetNillableJobCategory sets the "job_category" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableJobCategory(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetJobCategory(*s)
+	}
+	return juo
+}
+
+// SetCityInfo sets the "city_info" field.
+func (juo *JobUpdateOne) SetCityInfo(s string) *JobUpdateOne {
+	juo.mutation.SetCityInfo(s)
+	return juo
+}
+
+// SetNillableCityInfo sets the "city_info" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableCityInfo(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetCityInfo(*s)
+	}
+	return juo
+}
+
+// SetRecruitType sets the "recruit_type" field.
+func (juo *JobUpdateOne) SetRecruitType(s string) *JobUpdateOne {
+	juo.mutation.SetRecruitType(s)
+	return juo
+}
+
+// SetNillableRecruitType sets the "recruit_type" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableRecruitType(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetRecruitType(*s)
+	}
+	return juo
+}
+
+// SetPublishTime sets the "publish_time" field.
+func (juo *JobUpdateOne) SetPublishTime(t time.Time) *JobUpdateOne {
+	juo.mutation.SetPublishTime(t)
+	return juo
+}
+
+// SetNillablePublishTime sets the "publish_time" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillablePublishTime(t *time.Time) *JobUpdateOne {
+	if t != nil {
+		juo.SetPublishTime(*t)
+	}
+	return juo
+}
+
+// SetCode sets the "code" field.
+func (juo *JobUpdateOne) SetCode(s string) *JobUpdateOne {
+	juo.mutation.SetCode(s)
+	return juo
+}
+
+// SetNillableCode sets the "code" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableCode(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetCode(*s)
+	}
+	return juo
+}
+
+// SetCityList sets the "city_list" field.
+func (juo *JobUpdateOne) SetCityList(s []string) *JobUpdateOne {
+	juo.mutation.SetCityList(s)
+	return juo
+}
+
+// AppendCityList appends s to the "city_list" field.
+func (juo *JobUpdateOne) AppendCityList(s []string) *JobUpdateOne {
+	juo.mutation.AppendCityList(s)
+	return juo
+}
+
+// ClearCityList clears the value of the "city_list" field.
+func (juo *JobUpdateOne) ClearCityList() *JobUpdateOne {
+	juo.mutation.ClearCityList()
 	return juo
 }
 
@@ -262,6 +528,38 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 	}
 	if value, ok := juo.mutation.Company(); ok {
 		_spec.SetField(job.FieldCompany, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.Description(); ok {
+		_spec.SetField(job.FieldDescription, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.Requirement(); ok {
+		_spec.SetField(job.FieldRequirement, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.JobCategory(); ok {
+		_spec.SetField(job.FieldJobCategory, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.CityInfo(); ok {
+		_spec.SetField(job.FieldCityInfo, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.RecruitType(); ok {
+		_spec.SetField(job.FieldRecruitType, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.PublishTime(); ok {
+		_spec.SetField(job.FieldPublishTime, field.TypeTime, value)
+	}
+	if value, ok := juo.mutation.Code(); ok {
+		_spec.SetField(job.FieldCode, field.TypeString, value)
+	}
+	if value, ok := juo.mutation.CityList(); ok {
+		_spec.SetField(job.FieldCityList, field.TypeJSON, value)
+	}
+	if value, ok := juo.mutation.AppendedCityList(); ok {
+		_spec.AddModifier(func(u *sql.UpdateBuilder) {
+			sqljson.Append(u, job.FieldCityList, value)
+		})
+	}
+	if juo.mutation.CityListCleared() {
+		_spec.ClearField(job.FieldCityList, field.TypeJSON)
 	}
 	_node = &Job{config: juo.config}
 	_spec.Assign = _node.assignValues

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -28,6 +29,54 @@ func (jc *JobCreate) SetTitle(s string) *JobCreate {
 // SetCompany sets the "company" field.
 func (jc *JobCreate) SetCompany(s string) *JobCreate {
 	jc.mutation.SetCompany(s)
+	return jc
+}
+
+// SetDescription sets the "description" field.
+func (jc *JobCreate) SetDescription(s string) *JobCreate {
+	jc.mutation.SetDescription(s)
+	return jc
+}
+
+// SetRequirement sets the "requirement" field.
+func (jc *JobCreate) SetRequirement(s string) *JobCreate {
+	jc.mutation.SetRequirement(s)
+	return jc
+}
+
+// SetJobCategory sets the "job_category" field.
+func (jc *JobCreate) SetJobCategory(s string) *JobCreate {
+	jc.mutation.SetJobCategory(s)
+	return jc
+}
+
+// SetCityInfo sets the "city_info" field.
+func (jc *JobCreate) SetCityInfo(s string) *JobCreate {
+	jc.mutation.SetCityInfo(s)
+	return jc
+}
+
+// SetRecruitType sets the "recruit_type" field.
+func (jc *JobCreate) SetRecruitType(s string) *JobCreate {
+	jc.mutation.SetRecruitType(s)
+	return jc
+}
+
+// SetPublishTime sets the "publish_time" field.
+func (jc *JobCreate) SetPublishTime(t time.Time) *JobCreate {
+	jc.mutation.SetPublishTime(t)
+	return jc
+}
+
+// SetCode sets the "code" field.
+func (jc *JobCreate) SetCode(s string) *JobCreate {
+	jc.mutation.SetCode(s)
+	return jc
+}
+
+// SetCityList sets the "city_list" field.
+func (jc *JobCreate) SetCityList(s []string) *JobCreate {
+	jc.mutation.SetCityList(s)
 	return jc
 }
 
@@ -87,6 +136,27 @@ func (jc *JobCreate) check() error {
 			return &ValidationError{Name: "company", err: fmt.Errorf(`ent: validator failed for field "Job.company": %w`, err)}
 		}
 	}
+	if _, ok := jc.mutation.Description(); !ok {
+		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "Job.description"`)}
+	}
+	if _, ok := jc.mutation.Requirement(); !ok {
+		return &ValidationError{Name: "requirement", err: errors.New(`ent: missing required field "Job.requirement"`)}
+	}
+	if _, ok := jc.mutation.JobCategory(); !ok {
+		return &ValidationError{Name: "job_category", err: errors.New(`ent: missing required field "Job.job_category"`)}
+	}
+	if _, ok := jc.mutation.CityInfo(); !ok {
+		return &ValidationError{Name: "city_info", err: errors.New(`ent: missing required field "Job.city_info"`)}
+	}
+	if _, ok := jc.mutation.RecruitType(); !ok {
+		return &ValidationError{Name: "recruit_type", err: errors.New(`ent: missing required field "Job.recruit_type"`)}
+	}
+	if _, ok := jc.mutation.PublishTime(); !ok {
+		return &ValidationError{Name: "publish_time", err: errors.New(`ent: missing required field "Job.publish_time"`)}
+	}
+	if _, ok := jc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "Job.code"`)}
+	}
 	return nil
 }
 
@@ -126,6 +196,38 @@ func (jc *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
 	if value, ok := jc.mutation.Company(); ok {
 		_spec.SetField(job.FieldCompany, field.TypeString, value)
 		_node.Company = value
+	}
+	if value, ok := jc.mutation.Description(); ok {
+		_spec.SetField(job.FieldDescription, field.TypeString, value)
+		_node.Description = value
+	}
+	if value, ok := jc.mutation.Requirement(); ok {
+		_spec.SetField(job.FieldRequirement, field.TypeString, value)
+		_node.Requirement = value
+	}
+	if value, ok := jc.mutation.JobCategory(); ok {
+		_spec.SetField(job.FieldJobCategory, field.TypeString, value)
+		_node.JobCategory = value
+	}
+	if value, ok := jc.mutation.CityInfo(); ok {
+		_spec.SetField(job.FieldCityInfo, field.TypeString, value)
+		_node.CityInfo = value
+	}
+	if value, ok := jc.mutation.RecruitType(); ok {
+		_spec.SetField(job.FieldRecruitType, field.TypeString, value)
+		_node.RecruitType = value
+	}
+	if value, ok := jc.mutation.PublishTime(); ok {
+		_spec.SetField(job.FieldPublishTime, field.TypeTime, value)
+		_node.PublishTime = value
+	}
+	if value, ok := jc.mutation.Code(); ok {
+		_spec.SetField(job.FieldCode, field.TypeString, value)
+		_node.Code = value
+	}
+	if value, ok := jc.mutation.CityList(); ok {
+		_spec.SetField(job.FieldCityList, field.TypeJSON, value)
+		_node.CityList = value
 	}
 	return _node, _spec
 }

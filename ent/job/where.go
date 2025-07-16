@@ -3,6 +3,8 @@
 package job
 
 import (
+	"time"
+
 	"entgo.io/ent/dialect/sql"
 	"github.com/wj-stack/job-search/ent/predicate"
 )
@@ -60,6 +62,41 @@ func Title(v string) predicate.Job {
 // Company applies equality check predicate on the "company" field. It's identical to CompanyEQ.
 func Company(v string) predicate.Job {
 	return predicate.Job(sql.FieldEQ(FieldCompany, v))
+}
+
+// Description applies equality check predicate on the "description" field. It's identical to DescriptionEQ.
+func Description(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldDescription, v))
+}
+
+// Requirement applies equality check predicate on the "requirement" field. It's identical to RequirementEQ.
+func Requirement(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldRequirement, v))
+}
+
+// JobCategory applies equality check predicate on the "job_category" field. It's identical to JobCategoryEQ.
+func JobCategory(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldJobCategory, v))
+}
+
+// CityInfo applies equality check predicate on the "city_info" field. It's identical to CityInfoEQ.
+func CityInfo(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldCityInfo, v))
+}
+
+// RecruitType applies equality check predicate on the "recruit_type" field. It's identical to RecruitTypeEQ.
+func RecruitType(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldRecruitType, v))
+}
+
+// PublishTime applies equality check predicate on the "publish_time" field. It's identical to PublishTimeEQ.
+func PublishTime(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldPublishTime, v))
+}
+
+// Code applies equality check predicate on the "code" field. It's identical to CodeEQ.
+func Code(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldCode, v))
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.
@@ -190,6 +227,446 @@ func CompanyEqualFold(v string) predicate.Job {
 // CompanyContainsFold applies the ContainsFold predicate on the "company" field.
 func CompanyContainsFold(v string) predicate.Job {
 	return predicate.Job(sql.FieldContainsFold(FieldCompany, v))
+}
+
+// DescriptionEQ applies the EQ predicate on the "description" field.
+func DescriptionEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldDescription, v))
+}
+
+// DescriptionNEQ applies the NEQ predicate on the "description" field.
+func DescriptionNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldDescription, v))
+}
+
+// DescriptionIn applies the In predicate on the "description" field.
+func DescriptionIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldDescription, vs...))
+}
+
+// DescriptionNotIn applies the NotIn predicate on the "description" field.
+func DescriptionNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldDescription, vs...))
+}
+
+// DescriptionGT applies the GT predicate on the "description" field.
+func DescriptionGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldDescription, v))
+}
+
+// DescriptionGTE applies the GTE predicate on the "description" field.
+func DescriptionGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldDescription, v))
+}
+
+// DescriptionLT applies the LT predicate on the "description" field.
+func DescriptionLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldDescription, v))
+}
+
+// DescriptionLTE applies the LTE predicate on the "description" field.
+func DescriptionLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldDescription, v))
+}
+
+// DescriptionContains applies the Contains predicate on the "description" field.
+func DescriptionContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldDescription, v))
+}
+
+// DescriptionHasPrefix applies the HasPrefix predicate on the "description" field.
+func DescriptionHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldDescription, v))
+}
+
+// DescriptionHasSuffix applies the HasSuffix predicate on the "description" field.
+func DescriptionHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldDescription, v))
+}
+
+// DescriptionEqualFold applies the EqualFold predicate on the "description" field.
+func DescriptionEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldDescription, v))
+}
+
+// DescriptionContainsFold applies the ContainsFold predicate on the "description" field.
+func DescriptionContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldDescription, v))
+}
+
+// RequirementEQ applies the EQ predicate on the "requirement" field.
+func RequirementEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldRequirement, v))
+}
+
+// RequirementNEQ applies the NEQ predicate on the "requirement" field.
+func RequirementNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldRequirement, v))
+}
+
+// RequirementIn applies the In predicate on the "requirement" field.
+func RequirementIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldRequirement, vs...))
+}
+
+// RequirementNotIn applies the NotIn predicate on the "requirement" field.
+func RequirementNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldRequirement, vs...))
+}
+
+// RequirementGT applies the GT predicate on the "requirement" field.
+func RequirementGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldRequirement, v))
+}
+
+// RequirementGTE applies the GTE predicate on the "requirement" field.
+func RequirementGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldRequirement, v))
+}
+
+// RequirementLT applies the LT predicate on the "requirement" field.
+func RequirementLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldRequirement, v))
+}
+
+// RequirementLTE applies the LTE predicate on the "requirement" field.
+func RequirementLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldRequirement, v))
+}
+
+// RequirementContains applies the Contains predicate on the "requirement" field.
+func RequirementContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldRequirement, v))
+}
+
+// RequirementHasPrefix applies the HasPrefix predicate on the "requirement" field.
+func RequirementHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldRequirement, v))
+}
+
+// RequirementHasSuffix applies the HasSuffix predicate on the "requirement" field.
+func RequirementHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldRequirement, v))
+}
+
+// RequirementEqualFold applies the EqualFold predicate on the "requirement" field.
+func RequirementEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldRequirement, v))
+}
+
+// RequirementContainsFold applies the ContainsFold predicate on the "requirement" field.
+func RequirementContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldRequirement, v))
+}
+
+// JobCategoryEQ applies the EQ predicate on the "job_category" field.
+func JobCategoryEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldJobCategory, v))
+}
+
+// JobCategoryNEQ applies the NEQ predicate on the "job_category" field.
+func JobCategoryNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldJobCategory, v))
+}
+
+// JobCategoryIn applies the In predicate on the "job_category" field.
+func JobCategoryIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldJobCategory, vs...))
+}
+
+// JobCategoryNotIn applies the NotIn predicate on the "job_category" field.
+func JobCategoryNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldJobCategory, vs...))
+}
+
+// JobCategoryGT applies the GT predicate on the "job_category" field.
+func JobCategoryGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldJobCategory, v))
+}
+
+// JobCategoryGTE applies the GTE predicate on the "job_category" field.
+func JobCategoryGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldJobCategory, v))
+}
+
+// JobCategoryLT applies the LT predicate on the "job_category" field.
+func JobCategoryLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldJobCategory, v))
+}
+
+// JobCategoryLTE applies the LTE predicate on the "job_category" field.
+func JobCategoryLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldJobCategory, v))
+}
+
+// JobCategoryContains applies the Contains predicate on the "job_category" field.
+func JobCategoryContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldJobCategory, v))
+}
+
+// JobCategoryHasPrefix applies the HasPrefix predicate on the "job_category" field.
+func JobCategoryHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldJobCategory, v))
+}
+
+// JobCategoryHasSuffix applies the HasSuffix predicate on the "job_category" field.
+func JobCategoryHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldJobCategory, v))
+}
+
+// JobCategoryEqualFold applies the EqualFold predicate on the "job_category" field.
+func JobCategoryEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldJobCategory, v))
+}
+
+// JobCategoryContainsFold applies the ContainsFold predicate on the "job_category" field.
+func JobCategoryContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldJobCategory, v))
+}
+
+// CityInfoEQ applies the EQ predicate on the "city_info" field.
+func CityInfoEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldCityInfo, v))
+}
+
+// CityInfoNEQ applies the NEQ predicate on the "city_info" field.
+func CityInfoNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldCityInfo, v))
+}
+
+// CityInfoIn applies the In predicate on the "city_info" field.
+func CityInfoIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldCityInfo, vs...))
+}
+
+// CityInfoNotIn applies the NotIn predicate on the "city_info" field.
+func CityInfoNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldCityInfo, vs...))
+}
+
+// CityInfoGT applies the GT predicate on the "city_info" field.
+func CityInfoGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldCityInfo, v))
+}
+
+// CityInfoGTE applies the GTE predicate on the "city_info" field.
+func CityInfoGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldCityInfo, v))
+}
+
+// CityInfoLT applies the LT predicate on the "city_info" field.
+func CityInfoLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldCityInfo, v))
+}
+
+// CityInfoLTE applies the LTE predicate on the "city_info" field.
+func CityInfoLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldCityInfo, v))
+}
+
+// CityInfoContains applies the Contains predicate on the "city_info" field.
+func CityInfoContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldCityInfo, v))
+}
+
+// CityInfoHasPrefix applies the HasPrefix predicate on the "city_info" field.
+func CityInfoHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldCityInfo, v))
+}
+
+// CityInfoHasSuffix applies the HasSuffix predicate on the "city_info" field.
+func CityInfoHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldCityInfo, v))
+}
+
+// CityInfoEqualFold applies the EqualFold predicate on the "city_info" field.
+func CityInfoEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldCityInfo, v))
+}
+
+// CityInfoContainsFold applies the ContainsFold predicate on the "city_info" field.
+func CityInfoContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldCityInfo, v))
+}
+
+// RecruitTypeEQ applies the EQ predicate on the "recruit_type" field.
+func RecruitTypeEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldRecruitType, v))
+}
+
+// RecruitTypeNEQ applies the NEQ predicate on the "recruit_type" field.
+func RecruitTypeNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldRecruitType, v))
+}
+
+// RecruitTypeIn applies the In predicate on the "recruit_type" field.
+func RecruitTypeIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldRecruitType, vs...))
+}
+
+// RecruitTypeNotIn applies the NotIn predicate on the "recruit_type" field.
+func RecruitTypeNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldRecruitType, vs...))
+}
+
+// RecruitTypeGT applies the GT predicate on the "recruit_type" field.
+func RecruitTypeGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldRecruitType, v))
+}
+
+// RecruitTypeGTE applies the GTE predicate on the "recruit_type" field.
+func RecruitTypeGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldRecruitType, v))
+}
+
+// RecruitTypeLT applies the LT predicate on the "recruit_type" field.
+func RecruitTypeLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldRecruitType, v))
+}
+
+// RecruitTypeLTE applies the LTE predicate on the "recruit_type" field.
+func RecruitTypeLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldRecruitType, v))
+}
+
+// RecruitTypeContains applies the Contains predicate on the "recruit_type" field.
+func RecruitTypeContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldRecruitType, v))
+}
+
+// RecruitTypeHasPrefix applies the HasPrefix predicate on the "recruit_type" field.
+func RecruitTypeHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldRecruitType, v))
+}
+
+// RecruitTypeHasSuffix applies the HasSuffix predicate on the "recruit_type" field.
+func RecruitTypeHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldRecruitType, v))
+}
+
+// RecruitTypeEqualFold applies the EqualFold predicate on the "recruit_type" field.
+func RecruitTypeEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldRecruitType, v))
+}
+
+// RecruitTypeContainsFold applies the ContainsFold predicate on the "recruit_type" field.
+func RecruitTypeContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldRecruitType, v))
+}
+
+// PublishTimeEQ applies the EQ predicate on the "publish_time" field.
+func PublishTimeEQ(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldPublishTime, v))
+}
+
+// PublishTimeNEQ applies the NEQ predicate on the "publish_time" field.
+func PublishTimeNEQ(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldPublishTime, v))
+}
+
+// PublishTimeIn applies the In predicate on the "publish_time" field.
+func PublishTimeIn(vs ...time.Time) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldPublishTime, vs...))
+}
+
+// PublishTimeNotIn applies the NotIn predicate on the "publish_time" field.
+func PublishTimeNotIn(vs ...time.Time) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldPublishTime, vs...))
+}
+
+// PublishTimeGT applies the GT predicate on the "publish_time" field.
+func PublishTimeGT(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldPublishTime, v))
+}
+
+// PublishTimeGTE applies the GTE predicate on the "publish_time" field.
+func PublishTimeGTE(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldPublishTime, v))
+}
+
+// PublishTimeLT applies the LT predicate on the "publish_time" field.
+func PublishTimeLT(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldPublishTime, v))
+}
+
+// PublishTimeLTE applies the LTE predicate on the "publish_time" field.
+func PublishTimeLTE(v time.Time) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldPublishTime, v))
+}
+
+// CodeEQ applies the EQ predicate on the "code" field.
+func CodeEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldCode, v))
+}
+
+// CodeNEQ applies the NEQ predicate on the "code" field.
+func CodeNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldCode, v))
+}
+
+// CodeIn applies the In predicate on the "code" field.
+func CodeIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldCode, vs...))
+}
+
+// CodeNotIn applies the NotIn predicate on the "code" field.
+func CodeNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldCode, vs...))
+}
+
+// CodeGT applies the GT predicate on the "code" field.
+func CodeGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldCode, v))
+}
+
+// CodeGTE applies the GTE predicate on the "code" field.
+func CodeGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldCode, v))
+}
+
+// CodeLT applies the LT predicate on the "code" field.
+func CodeLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldCode, v))
+}
+
+// CodeLTE applies the LTE predicate on the "code" field.
+func CodeLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldCode, v))
+}
+
+// CodeContains applies the Contains predicate on the "code" field.
+func CodeContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldCode, v))
+}
+
+// CodeHasPrefix applies the HasPrefix predicate on the "code" field.
+func CodeHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldCode, v))
+}
+
+// CodeHasSuffix applies the HasSuffix predicate on the "code" field.
+func CodeHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldCode, v))
+}
+
+// CodeEqualFold applies the EqualFold predicate on the "code" field.
+func CodeEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldCode, v))
+}
+
+// CodeContainsFold applies the ContainsFold predicate on the "code" field.
+func CodeContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldCode, v))
+}
+
+// CityListIsNil applies the IsNil predicate on the "city_list" field.
+func CityListIsNil() predicate.Job {
+	return predicate.Job(sql.FieldIsNull(FieldCityList))
+}
+
+// CityListNotNil applies the NotNil predicate on the "city_list" field.
+func CityListNotNil() predicate.Job {
+	return predicate.Job(sql.FieldNotNull(FieldCityList))
 }
 
 // And groups predicates with the AND operator between them.

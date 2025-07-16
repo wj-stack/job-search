@@ -3,8 +3,10 @@
 package ent
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
@@ -20,7 +22,23 @@ type Job struct {
 	// 岗位名称
 	Title string `json:"title,omitempty"`
 	// 公司名称
-	Company      string `json:"company,omitempty"`
+	Company string `json:"company,omitempty"`
+	// 岗位描述
+	Description string `json:"description,omitempty"`
+	// 岗位要求
+	Requirement string `json:"requirement,omitempty"`
+	// 岗位类别
+	JobCategory string `json:"job_category,omitempty"`
+	// 城市信息
+	CityInfo string `json:"city_info,omitempty"`
+	// 招聘类型
+	RecruitType string `json:"recruit_type,omitempty"`
+	// 发布时间
+	PublishTime time.Time `json:"publish_time,omitempty"`
+	// 代码
+	Code string `json:"code,omitempty"`
+	// 城市列表
+	CityList     []string `json:"city_list,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -29,10 +47,14 @@ func (*Job) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case job.FieldCityList:
+			values[i] = new([]byte)
 		case job.FieldID:
 			values[i] = new(sql.NullInt64)
-		case job.FieldTitle, job.FieldCompany:
+		case job.FieldTitle, job.FieldCompany, job.FieldDescription, job.FieldRequirement, job.FieldJobCategory, job.FieldCityInfo, job.FieldRecruitType, job.FieldCode:
 			values[i] = new(sql.NullString)
+		case job.FieldPublishTime:
+			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -65,6 +87,56 @@ func (j *Job) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field company", values[i])
 			} else if value.Valid {
 				j.Company = value.String
+			}
+		case job.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				j.Description = value.String
+			}
+		case job.FieldRequirement:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field requirement", values[i])
+			} else if value.Valid {
+				j.Requirement = value.String
+			}
+		case job.FieldJobCategory:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field job_category", values[i])
+			} else if value.Valid {
+				j.JobCategory = value.String
+			}
+		case job.FieldCityInfo:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field city_info", values[i])
+			} else if value.Valid {
+				j.CityInfo = value.String
+			}
+		case job.FieldRecruitType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field recruit_type", values[i])
+			} else if value.Valid {
+				j.RecruitType = value.String
+			}
+		case job.FieldPublishTime:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field publish_time", values[i])
+			} else if value.Valid {
+				j.PublishTime = value.Time
+			}
+		case job.FieldCode:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field code", values[i])
+			} else if value.Valid {
+				j.Code = value.String
+			}
+		case job.FieldCityList:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field city_list", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &j.CityList); err != nil {
+					return fmt.Errorf("unmarshal field city_list: %w", err)
+				}
 			}
 		default:
 			j.selectValues.Set(columns[i], values[i])
@@ -107,6 +179,30 @@ func (j *Job) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("company=")
 	builder.WriteString(j.Company)
+	builder.WriteString(", ")
+	builder.WriteString("description=")
+	builder.WriteString(j.Description)
+	builder.WriteString(", ")
+	builder.WriteString("requirement=")
+	builder.WriteString(j.Requirement)
+	builder.WriteString(", ")
+	builder.WriteString("job_category=")
+	builder.WriteString(j.JobCategory)
+	builder.WriteString(", ")
+	builder.WriteString("city_info=")
+	builder.WriteString(j.CityInfo)
+	builder.WriteString(", ")
+	builder.WriteString("recruit_type=")
+	builder.WriteString(j.RecruitType)
+	builder.WriteString(", ")
+	builder.WriteString("publish_time=")
+	builder.WriteString(j.PublishTime.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("code=")
+	builder.WriteString(j.Code)
+	builder.WriteString(", ")
+	builder.WriteString("city_list=")
+	builder.WriteString(fmt.Sprintf("%v", j.CityList))
 	builder.WriteByte(')')
 	return builder.String()
 }

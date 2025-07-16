@@ -15,6 +15,22 @@ const (
 	FieldTitle = "title"
 	// FieldCompany holds the string denoting the company field in the database.
 	FieldCompany = "company"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
+	// FieldRequirement holds the string denoting the requirement field in the database.
+	FieldRequirement = "requirement"
+	// FieldJobCategory holds the string denoting the job_category field in the database.
+	FieldJobCategory = "job_category"
+	// FieldCityInfo holds the string denoting the city_info field in the database.
+	FieldCityInfo = "city_info"
+	// FieldRecruitType holds the string denoting the recruit_type field in the database.
+	FieldRecruitType = "recruit_type"
+	// FieldPublishTime holds the string denoting the publish_time field in the database.
+	FieldPublishTime = "publish_time"
+	// FieldCode holds the string denoting the code field in the database.
+	FieldCode = "code"
+	// FieldCityList holds the string denoting the city_list field in the database.
+	FieldCityList = "city_list"
 	// Table holds the table name of the job in the database.
 	Table = "jobs"
 )
@@ -24,6 +40,14 @@ var Columns = []string{
 	FieldID,
 	FieldTitle,
 	FieldCompany,
+	FieldDescription,
+	FieldRequirement,
+	FieldJobCategory,
+	FieldCityInfo,
+	FieldRecruitType,
+	FieldPublishTime,
+	FieldCode,
+	FieldCityList,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -59,4 +83,39 @@ func ByTitle(opts ...sql.OrderTermOption) OrderOption {
 // ByCompany orders the results by the company field.
 func ByCompany(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCompany, opts...).ToFunc()
+}
+
+// ByDescription orders the results by the description field.
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescription, opts...).ToFunc()
+}
+
+// ByRequirement orders the results by the requirement field.
+func ByRequirement(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRequirement, opts...).ToFunc()
+}
+
+// ByJobCategory orders the results by the job_category field.
+func ByJobCategory(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldJobCategory, opts...).ToFunc()
+}
+
+// ByCityInfo orders the results by the city_info field.
+func ByCityInfo(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCityInfo, opts...).ToFunc()
+}
+
+// ByRecruitType orders the results by the recruit_type field.
+func ByRecruitType(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRecruitType, opts...).ToFunc()
+}
+
+// ByPublishTime orders the results by the publish_time field.
+func ByPublishTime(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPublishTime, opts...).ToFunc()
+}
+
+// ByCode orders the results by the code field.
+func ByCode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCode, opts...).ToFunc()
 }

@@ -27,6 +27,14 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "title", Type: field.TypeString, Size: 100},
 		{Name: "company", Type: field.TypeString, Size: 100},
+		{Name: "description", Type: field.TypeString},
+		{Name: "requirement", Type: field.TypeString},
+		{Name: "job_category", Type: field.TypeString},
+		{Name: "city_info", Type: field.TypeString},
+		{Name: "recruit_type", Type: field.TypeString},
+		{Name: "publish_time", Type: field.TypeTime},
+		{Name: "code", Type: field.TypeString},
+		{Name: "city_list", Type: field.TypeJSON, Nullable: true},
 	}
 	// JobsTable holds the schema information for the "jobs" table.
 	JobsTable = &schema.Table{

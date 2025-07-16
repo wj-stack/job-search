@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
@@ -596,15 +597,24 @@ func (m *ApplicationMutation) ResetEdge(name string) error {
 // JobMutation represents an operation that mutates the Job nodes in the graph.
 type JobMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *int
-	title         *string
-	company       *string
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*Job, error)
-	predicates    []predicate.Job
+	op              Op
+	typ             string
+	id              *int
+	title           *string
+	company         *string
+	description     *string
+	requirement     *string
+	job_category    *string
+	city_info       *string
+	recruit_type    *string
+	publish_time    *time.Time
+	code            *string
+	city_list       *[]string
+	appendcity_list []string
+	clearedFields   map[string]struct{}
+	done            bool
+	oldValue        func(context.Context) (*Job, error)
+	predicates      []predicate.Job
 }
 
 var _ ent.Mutation = (*JobMutation)(nil)
@@ -783,6 +793,323 @@ func (m *JobMutation) ResetCompany() {
 	m.company = nil
 }
 
+// SetDescription sets the "description" field.
+func (m *JobMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *JobMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *JobMutation) ResetDescription() {
+	m.description = nil
+}
+
+// SetRequirement sets the "requirement" field.
+func (m *JobMutation) SetRequirement(s string) {
+	m.requirement = &s
+}
+
+// Requirement returns the value of the "requirement" field in the mutation.
+func (m *JobMutation) Requirement() (r string, exists bool) {
+	v := m.requirement
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRequirement returns the old "requirement" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldRequirement(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRequirement is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRequirement requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRequirement: %w", err)
+	}
+	return oldValue.Requirement, nil
+}
+
+// ResetRequirement resets all changes to the "requirement" field.
+func (m *JobMutation) ResetRequirement() {
+	m.requirement = nil
+}
+
+// SetJobCategory sets the "job_category" field.
+func (m *JobMutation) SetJobCategory(s string) {
+	m.job_category = &s
+}
+
+// JobCategory returns the value of the "job_category" field in the mutation.
+func (m *JobMutation) JobCategory() (r string, exists bool) {
+	v := m.job_category
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldJobCategory returns the old "job_category" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldJobCategory(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldJobCategory is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldJobCategory requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldJobCategory: %w", err)
+	}
+	return oldValue.JobCategory, nil
+}
+
+// ResetJobCategory resets all changes to the "job_category" field.
+func (m *JobMutation) ResetJobCategory() {
+	m.job_category = nil
+}
+
+// SetCityInfo sets the "city_info" field.
+func (m *JobMutation) SetCityInfo(s string) {
+	m.city_info = &s
+}
+
+// CityInfo returns the value of the "city_info" field in the mutation.
+func (m *JobMutation) CityInfo() (r string, exists bool) {
+	v := m.city_info
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCityInfo returns the old "city_info" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldCityInfo(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCityInfo is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCityInfo requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCityInfo: %w", err)
+	}
+	return oldValue.CityInfo, nil
+}
+
+// ResetCityInfo resets all changes to the "city_info" field.
+func (m *JobMutation) ResetCityInfo() {
+	m.city_info = nil
+}
+
+// SetRecruitType sets the "recruit_type" field.
+func (m *JobMutation) SetRecruitType(s string) {
+	m.recruit_type = &s
+}
+
+// RecruitType returns the value of the "recruit_type" field in the mutation.
+func (m *JobMutation) RecruitType() (r string, exists bool) {
+	v := m.recruit_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRecruitType returns the old "recruit_type" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldRecruitType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRecruitType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRecruitType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRecruitType: %w", err)
+	}
+	return oldValue.RecruitType, nil
+}
+
+// ResetRecruitType resets all changes to the "recruit_type" field.
+func (m *JobMutation) ResetRecruitType() {
+	m.recruit_type = nil
+}
+
+// SetPublishTime sets the "publish_time" field.
+func (m *JobMutation) SetPublishTime(t time.Time) {
+	m.publish_time = &t
+}
+
+// PublishTime returns the value of the "publish_time" field in the mutation.
+func (m *JobMutation) PublishTime() (r time.Time, exists bool) {
+	v := m.publish_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPublishTime returns the old "publish_time" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldPublishTime(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPublishTime is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPublishTime requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPublishTime: %w", err)
+	}
+	return oldValue.PublishTime, nil
+}
+
+// ResetPublishTime resets all changes to the "publish_time" field.
+func (m *JobMutation) ResetPublishTime() {
+	m.publish_time = nil
+}
+
+// SetCode sets the "code" field.
+func (m *JobMutation) SetCode(s string) {
+	m.code = &s
+}
+
+// Code returns the value of the "code" field in the mutation.
+func (m *JobMutation) Code() (r string, exists bool) {
+	v := m.code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCode returns the old "code" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCode: %w", err)
+	}
+	return oldValue.Code, nil
+}
+
+// ResetCode resets all changes to the "code" field.
+func (m *JobMutation) ResetCode() {
+	m.code = nil
+}
+
+// SetCityList sets the "city_list" field.
+func (m *JobMutation) SetCityList(s []string) {
+	m.city_list = &s
+	m.appendcity_list = nil
+}
+
+// CityList returns the value of the "city_list" field in the mutation.
+func (m *JobMutation) CityList() (r []string, exists bool) {
+	v := m.city_list
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCityList returns the old "city_list" field's value of the Job entity.
+// If the Job object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *JobMutation) OldCityList(ctx context.Context) (v []string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCityList is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCityList requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCityList: %w", err)
+	}
+	return oldValue.CityList, nil
+}
+
+// AppendCityList adds s to the "city_list" field.
+func (m *JobMutation) AppendCityList(s []string) {
+	m.appendcity_list = append(m.appendcity_list, s...)
+}
+
+// AppendedCityList returns the list of values that were appended to the "city_list" field in this mutation.
+func (m *JobMutation) AppendedCityList() ([]string, bool) {
+	if len(m.appendcity_list) == 0 {
+		return nil, false
+	}
+	return m.appendcity_list, true
+}
+
+// ClearCityList clears the value of the "city_list" field.
+func (m *JobMutation) ClearCityList() {
+	m.city_list = nil
+	m.appendcity_list = nil
+	m.clearedFields[job.FieldCityList] = struct{}{}
+}
+
+// CityListCleared returns if the "city_list" field was cleared in this mutation.
+func (m *JobMutation) CityListCleared() bool {
+	_, ok := m.clearedFields[job.FieldCityList]
+	return ok
+}
+
+// ResetCityList resets all changes to the "city_list" field.
+func (m *JobMutation) ResetCityList() {
+	m.city_list = nil
+	m.appendcity_list = nil
+	delete(m.clearedFields, job.FieldCityList)
+}
+
 // Where appends a list predicates to the JobMutation builder.
 func (m *JobMutation) Where(ps ...predicate.Job) {
 	m.predicates = append(m.predicates, ps...)
@@ -817,12 +1144,36 @@ func (m *JobMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *JobMutation) Fields() []string {
-	fields := make([]string, 0, 2)
+	fields := make([]string, 0, 10)
 	if m.title != nil {
 		fields = append(fields, job.FieldTitle)
 	}
 	if m.company != nil {
 		fields = append(fields, job.FieldCompany)
+	}
+	if m.description != nil {
+		fields = append(fields, job.FieldDescription)
+	}
+	if m.requirement != nil {
+		fields = append(fields, job.FieldRequirement)
+	}
+	if m.job_category != nil {
+		fields = append(fields, job.FieldJobCategory)
+	}
+	if m.city_info != nil {
+		fields = append(fields, job.FieldCityInfo)
+	}
+	if m.recruit_type != nil {
+		fields = append(fields, job.FieldRecruitType)
+	}
+	if m.publish_time != nil {
+		fields = append(fields, job.FieldPublishTime)
+	}
+	if m.code != nil {
+		fields = append(fields, job.FieldCode)
+	}
+	if m.city_list != nil {
+		fields = append(fields, job.FieldCityList)
 	}
 	return fields
 }
@@ -836,6 +1187,22 @@ func (m *JobMutation) Field(name string) (ent.Value, bool) {
 		return m.Title()
 	case job.FieldCompany:
 		return m.Company()
+	case job.FieldDescription:
+		return m.Description()
+	case job.FieldRequirement:
+		return m.Requirement()
+	case job.FieldJobCategory:
+		return m.JobCategory()
+	case job.FieldCityInfo:
+		return m.CityInfo()
+	case job.FieldRecruitType:
+		return m.RecruitType()
+	case job.FieldPublishTime:
+		return m.PublishTime()
+	case job.FieldCode:
+		return m.Code()
+	case job.FieldCityList:
+		return m.CityList()
 	}
 	return nil, false
 }
@@ -849,6 +1216,22 @@ func (m *JobMutation) OldField(ctx context.Context, name string) (ent.Value, err
 		return m.OldTitle(ctx)
 	case job.FieldCompany:
 		return m.OldCompany(ctx)
+	case job.FieldDescription:
+		return m.OldDescription(ctx)
+	case job.FieldRequirement:
+		return m.OldRequirement(ctx)
+	case job.FieldJobCategory:
+		return m.OldJobCategory(ctx)
+	case job.FieldCityInfo:
+		return m.OldCityInfo(ctx)
+	case job.FieldRecruitType:
+		return m.OldRecruitType(ctx)
+	case job.FieldPublishTime:
+		return m.OldPublishTime(ctx)
+	case job.FieldCode:
+		return m.OldCode(ctx)
+	case job.FieldCityList:
+		return m.OldCityList(ctx)
 	}
 	return nil, fmt.Errorf("unknown Job field %s", name)
 }
@@ -871,6 +1254,62 @@ func (m *JobMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCompany(v)
+		return nil
+	case job.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
+		return nil
+	case job.FieldRequirement:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRequirement(v)
+		return nil
+	case job.FieldJobCategory:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetJobCategory(v)
+		return nil
+	case job.FieldCityInfo:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCityInfo(v)
+		return nil
+	case job.FieldRecruitType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRecruitType(v)
+		return nil
+	case job.FieldPublishTime:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPublishTime(v)
+		return nil
+	case job.FieldCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCode(v)
+		return nil
+	case job.FieldCityList:
+		v, ok := value.([]string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCityList(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Job field %s", name)
@@ -901,7 +1340,11 @@ func (m *JobMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *JobMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(job.FieldCityList) {
+		fields = append(fields, job.FieldCityList)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -914,6 +1357,11 @@ func (m *JobMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *JobMutation) ClearField(name string) error {
+	switch name {
+	case job.FieldCityList:
+		m.ClearCityList()
+		return nil
+	}
 	return fmt.Errorf("unknown Job nullable field %s", name)
 }
 
@@ -926,6 +1374,30 @@ func (m *JobMutation) ResetField(name string) error {
 		return nil
 	case job.FieldCompany:
 		m.ResetCompany()
+		return nil
+	case job.FieldDescription:
+		m.ResetDescription()
+		return nil
+	case job.FieldRequirement:
+		m.ResetRequirement()
+		return nil
+	case job.FieldJobCategory:
+		m.ResetJobCategory()
+		return nil
+	case job.FieldCityInfo:
+		m.ResetCityInfo()
+		return nil
+	case job.FieldRecruitType:
+		m.ResetRecruitType()
+		return nil
+	case job.FieldPublishTime:
+		m.ResetPublishTime()
+		return nil
+	case job.FieldCode:
+		m.ResetCode()
+		return nil
+	case job.FieldCityList:
+		m.ResetCityList()
 		return nil
 	}
 	return fmt.Errorf("unknown Job field %s", name)
